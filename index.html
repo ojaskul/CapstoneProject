@@ -1,169 +1,235 @@
-<style>
-table, th, td {
-  border:1px solid black;
-}
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone Project - Retrofit Smart Home</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+        
+    <div class="topnav" id="myTopnav">
+        <button class="links" onclick="open_tab_content(event, 'final_design')">Final Design Proposal</button>
+        <button class="links" onclick="open_tab_content(event, 'details')">Project Details</button>
+        <button class="links" onclick="open_tab_content(event, 'team')">Our Team</button>
 
-<h1>Capstone Project Details</h1>
-<h2>Project Details</h2>
-<table>
-  <tr>
-    <th>Dates/Times</th>
-    <th>Agenda</th>
-    <th>Details and what we did</th>
-  </tr>
-  <tr>
-    <td>04/20/2023, Thursday</td>
-    <td>Formulating and finalizing the Prototype Demonstration Documentation</td>
-    <td>
-     <ul>
-      <li>We firstly created a schematic for our prototype including the motor and LED control.</li>
-      <li>Using this experience, we developed our course of action for our final project and what changes can be made which will eventually make the product better.</li>
-      <li>We discussed, and noted several components which would be of better fit and finalized the prototype demonstration document.</li>
-     </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>04/18/2023, Tuesday</td>
-    <td>Development of the motor driver controller, complete with simple UI and independent power supply</td>
-    <td>
-     <ul>
-      <li>One problem that arose was that the current output from the digital IO pin wasn't nearly as high as was needed to make the motor spin.</li>
-      <li>Firstly, we attempted to use a MOSFET in a digital fashion (to supply current direclty from the power source) using the digital IO as the gate voltage.</li>
-      <li>This did not work, and we hypothesized it was due to the lack of current supplied by the batteies. After external consultation, we also tried to use the MOSFET in an analog fashion (amplify) which also did not work.</li>
-      <li>Our final attempt was to use an L298N motor driver and since our teams were also using these drivers for other classes, we had an immediate supply.</li>
-      <li>Through online tutorials, and datasheets for the L298N, the connections between the motor driver and ESP board were made and cross checked. Finally, a motor was conencted, which seemed to work</li>
-      <li>We added more controls on the landing page to control the DC motor, and throughly tested its functionality.</li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>04/13/2023, Thursday</td>
-    <td>Development of the LED control functionality and stretch goal parts ordering</td>
-    <td>
-     <ul>
-      <li>Using our experience from last time, our task today was to build a simple GUI to control the state of an LED. We had already gotten the application to connect to a hotspot.</li>
-      <li>We firstly identified all the appropriate GPIO pins that could be used for this purpose and checked their digital voltage and current levels.</li>
-      <li>After this, we hooked up a small LED through a current limiting resistor directly to ground, such that the digital write can directly control the state of the LED.</li>
-      <li>The GUI was developed as HTML which could be tentatively implemented as in-line functions in the ESP language. We decided to have On/Off buttons for this control.</li>
-      <li>We completed our primary prototype goal earlier than expected, and the next step was to control a motor. We ordered a 6V brushless DC motor that could be programmed similarly.</li>
-     </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>04/11/2023, Tuesday</td>
-    <td>Initial testing of the ESP8266 MCU and exploration of features</td>
-    <td>
-     <ul>
-      <li>As per last time, we received the parts we ordered which were primarily the ESP8266 MCU and a suitable battery.</li>
-      <li>This day was all about reading documentation for the ESP module and understanding all the intricacies of WiFi based communication</li>
-      <li>Firstly, we integrated a WiFi connection using online tutorials and the <a href="https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf">datasheet</a></li>
-      <li>Finally, we made tentative designs for the GUI and roughly assessed the complexity of the prototype and final project.</li>
-     </ul>
-    </td>
-  </tr>
-  
-  <!-- New -->
-  
-  <tr>
-    <td>04/05/2023, Wednesday</td>
-    <td>Formulating and finalizing the Prototype Proposal Document</td>
-    <td>
-     <ul>
-      <li>We discussed which microcontroller we will be using for our prototype. We considered constraints such as time limits, parts sourcing, and ease of use.</li>
-      <li>From all this, we landed on using a 32-bit ESP8266 MPU implemented on FEATHER MCU. This MCU has WiFi on board and has a small footprint so that it can be easily integrated with our demo</li>
-      <li>The development environment for our prototypes were discussed, along with considerations of other peripherals such as power converters. etc.</li>
-      <li>Our stretch goals for the prototype includes control of a small stepper motor. This stepper motor was selected and evaluated along with others.</li>
-      <li>We finalized what was going to be implemented in our prototype (a terminal/simple UI to control, WiFi to send data, LED/motor as an end effector.</li>
-     </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>03/23/2023, Thursday</td>
-    <td>Finalizing initial Project Proposal documents and fixing anything that needs all team members</td>
-    <td>
-     <ul>
-      <li>We finalized our initial project proposal documentation. Each of us had a task to do so this time we took time to read each others and fixed any mistakes that were observed.</li>
-      <li>The sections for project tasks, resources, testing plans, and demo description were detailed more so our whole team could work on it together. We devised and revised these sections.</li>
-      <li>A final proofread was also done by each team member independent of the others. Mistakes/improvements/clarifications were noted implemented accordingly.</li>
-     </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>03/16/2023, Thursday</td>
-    <td>Initial layout, documentation, and discussion about the initial proposal document</td>
-    <td>
-     <ul>
-      <li>We discussed what needs to be done for the initial proposal document and which sections need expansion. </li>
-      <li>We divided tasks to do over the week for each of us. Ojas is going to work on the discussion section, Isaac is going to work on the intro, background, and Garret will finish up the conclusion, and add to discussion</li>
-      <li>We expanded on our project idea for all the peripherals, control systems, and subsystems we might need. </li>
-      <li>We have also started to keep a very initial bill of materials that includes things each of us thinks we will need. So far we have major components such as MCUs, IO peripherals, etc.</li>
-     </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>03/02/2023, Thursday</td>
-    <td>Finalizing Project Proposal and Formulating any New Project Ideas</td>
-    <td>
-     <ul>
-      <li>We finalized our project proposal to include everything we had presented in class. This includes the smart light switch, stove control, and weather system.</li>
-      <li>We also included some hints about our WiFi based app in the proposal, e.g. what kind of connection would it use, how would it send the data (TCP/UDP).</li>
-      <li>We also finalized external considerations and adding any additional stretch goals which are priority based: safety for stove controller, etc.</li>
-     </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>02/28/2023, Tuesday</td>
-    <td>Finalizing Project Idea and Making Abstract Slides</td>
-    <td>
-     <ul>
-      <li>We finalized our project idea to include all that we had talked about. Our final idea is creating retrofitting devices to turn a home into a smart home.</li>
-      <li>We are including a smart weather system, smart light switches, stovetop knob controls and connecting all these to an WiFi based app that controls each.</li>
-      <li>We made finalized and practiced our talks for our proposal abstract on Thursday.</li>
-     </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>02/24/2023, Friday</td>
-    <td>Narrowing down ideas</td>
-    <td>
-     <ul>
-      <li>We finalized our website, and primarily worked on narrowing down ideas.</li>
-      <li>We have narrowed down our ideas to 4 different projects which are automatic valve closer (for kitchen stoves etc.), gesture based wheelchair,<br> automatic traffic management system, mini-weather station for extremely accurate data.</li>
-     </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>02/23/2023, Thursday</td>
-    <td>Creating public website</td>
-    <td>
-     <ul>
-      <li>Created public website using github pages using basic HTML/CSS. Any group member is able to manipulate the text</li>
-      <li>We're not completely sure what we're going to be doing for our senior project, but we were throwing around a couple of ideas</li>
-      <li>We're thinking of an automatic valve closer, smart electric jacket</li>
-     </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>02/17/2023, Friday</td>
-    <td>Creating mission statement</td>
-    <td>
-     <ul>
-      <li>Created our mission statement for our group, thinking of it as a company</li>
-      <li>We were brainstorming potential ideas and we narrowed them down to smart electric jacket, or an automated ice cream machine</li>
-     </ul>
-    </td>
-  </tr>
-</table>
-<hr>
-<h2>About</h2>
-<p>Our group is trying to create a product that fulfills a niche in the market. Our group is primarily focusing on four different ideas which will be further narrowed down, which are: <br>
-automatic valve closer (for kitchen stoves etc.), gesture based wheelchair, automatic traffic management system, mini-weather station for extremely accurate data.</p>
-<p>Click <a href="https://github.com/ojaskul/CapstoneProject">here</a> for our codebase!</p>
-<h2>People</h2>
-<ul>
-  <li>Garrett Slack: Garrett is a junior at the University of Utah who enjoys VLSI, Circuits, and Robotics. He can be reached at garrettlslack@gmail.com</li>
-  <li>Isaac Stagg: Isaac is very much interested in software systems so his expertise can be leveraged when creating applications. He can be reached at isaac.stagg@utah.edu</li>
-  <li>Ojas Kulkarni: Ojas is very much interested in electrical systems design and is an expert in hardware oriented stuff. He can be reached at ojas.ajay.kulkarni@gmail.com</li>
-</ul>
+        <button href="javascript:void(0);" class="icon" onclick="open_tab()">
+        <i class="fa fa-bars"></i>
+        </button>
+    </div>
 
+    <!-- Start of Final Design Proposal Div-->
+    <div id="final_design" class="content">
+        <h3>Final Design Proposal</h3>
+        <p>Our group is trying to create a product that fulfills a niche in the market. Our group is primarily focusing on four different ideas which will be further narrowed down, which are: <br>
+            automatic valve closer (for kitchen stoves etc.), gesture based wheelchair, automatic traffic management system, mini-weather station for extremely accurate data.</p>
+        <p>Click <a href="https://github.com/ojaskul/CapstoneProject">here</a> for our codebase!</p>
+    </div>
+    <!-- End of Final Design Details Div-->
+
+    <!-- Start of Project Details Div-->
+    <div id="details" class="content">
+        <h3>Project Details</h3>
+        <table>
+            <tr style="width:100%">
+                <th style="width:8%">Dates/Times</th>
+                <th style="width:20%">Agenda</th>
+                <th style="width:64%">Details and what we did</th>
+                <th style="width:8%">Images</th>
+            </tr>
+            <tr>
+                <td style="text-align:center">04/20/2023, Thursday</td>
+                <td style="text-align:center">Formulating and finalizing the Prototype Demonstration Documentation</td>
+                <td>
+                    <ul>
+                        <li>We firstly created a schematic for our prototype including the motor and LED control.</li>
+                        <li>Using this experience, we developed our course of action for our final project and what changes can be made which will eventually make the product better.</li>
+                        <li>We discussed, and noted several components which would be of better fit and finalized the prototype demonstration document.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">04/18/2023, Tuesday</td>
+                <td style="text-align:center">Development of the motor driver controller, complete with simple UI and independent power supply</td>
+                <td>
+                    <ul>
+                        <li>One problem that arose was that the current output from the digital IO pin wasn't nearly as high as was needed to make the motor spin.</li>
+                        <li>Firstly, we attempted to use a MOSFET in a digital fashion (to supply current direclty from the power source) using the digital IO as the gate voltage.</li>
+                        <li>This did not work, and we hypothesized it was due to the lack of current supplied by the batteies. After external consultation, we also tried to use the MOSFET in an analog fashion (amplify) which also did not work.</li>
+                        <li>Our final attempt was to use an L298N motor driver and since our teams were also using these drivers for other classes, we had an immediate supply.</li>
+                        <li>Through online tutorials, and datasheets for the L298N, the connections between the motor driver and ESP board were made and cross checked. Finally, a motor was conencted, which seemed to work</li>
+                        <li>We added more controls on the landing page to control the DC motor, and throughly tested its functionality.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">04/13/2023, Thursday</td>
+                <td style="text-align:center">Development of the LED control functionality and stretch goal parts ordering</td>
+                <td>
+                    <ul>
+                        <li>Using our experience from last time, our task today was to build a simple GUI to control the state of an LED. We had already gotten the application to connect to a hotspot.</li>
+                        <li>We firstly identified all the appropriate GPIO pins that could be used for this purpose and checked their digital voltage and current levels.</li>
+                        <li>After this, we hooked up a small LED through a current limiting resistor directly to ground, such that the digital write can directly control the state of the LED.</li>
+                        <li>The GUI was developed as HTML which could be tentatively implemented as in-line functions in the ESP language. We decided to have On/Off buttons for this control.</li>
+                        <li>We completed our primary prototype goal earlier than expected, and the next step was to control a motor. We ordered a 6V brushless DC motor that could be programmed similarly.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">04/11/2023, Tuesday</td>
+                <td style="text-align:center">Initial testing of the ESP8266 MCU and exploration of features</td>
+                <td>
+                    <ul>
+                        <li>As per last time, we received the parts we ordered which were primarily the ESP8266 MCU and a suitable battery.</li>
+                        <li>This day was all about reading documentation for the ESP module and understanding all the intricacies of WiFi based communication</li>
+                        <li>Firstly, we integrated a WiFi connection using online tutorials and the <a href="https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf">datasheet</a></li>
+                        <li>Finally, we made tentative designs for the GUI and roughly assessed the complexity of the prototype and final project.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>            
+            <tr>
+                <td style="text-align:center">04/05/2023, Wednesday</td>
+                <td style="text-align:center">Formulating and finalizing the Prototype Proposal Document</td>
+                <td>
+                    <ul>
+                        <li>We discussed which microcontroller we will be using for our prototype. We considered constraints such as time limits, parts sourcing, and ease of use.</li>
+                        <li>From all this, we landed on using a 32-bit ESP8266 MPU implemented on FEATHER MCU. This MCU has WiFi on board and has a small footprint so that it can be easily integrated with our demo</li>
+                        <li>The development environment for our prototypes were discussed, along with considerations of other peripherals such as power converters. etc.</li>
+                        <li>Our stretch goals for the prototype includes control of a small stepper motor. This stepper motor was selected and evaluated along with others.</li>
+                        <li>We finalized what was going to be implemented in our prototype (a terminal/simple UI to control, WiFi to send data, LED/motor as an end effector.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">03/23/2023, Thursday</td>
+                <td style="text-align:center">Finalizing initial Project Proposal documents and fixing anything that needs all team members</td>
+                <td>
+                    <ul>
+                        <li>We finalized our initial project proposal documentation. Each of us had a task to do so this time we took time to read each others and fixed any mistakes that were observed.</li>
+                        <li>The sections for project tasks, resources, testing plans, and demo description were detailed more so our whole team could work on it together. We devised and revised these sections.</li>
+                        <li>A final proofread was also done by each team member independent of the others. Mistakes/improvements/clarifications were noted implemented accordingly.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">03/16/2023, Thursday</td>
+                <td style="text-align:center">Initial layout, documentation, and discussion about the initial proposal document</td>
+                <td>
+                    <ul>
+                        <li>We discussed what needs to be done for the initial proposal document and which sections need expansion. </li>
+                        <li>We divided tasks to do over the week for each of us. Ojas is going to work on the discussion section, Isaac is going to work on the intro, background, and Garret will finish up the conclusion, and add to discussion</li>
+                        <li>We expanded on our project idea for all the peripherals, control systems, and subsystems we might need. </li>
+                        <li>We have also started to keep a very initial bill of materials that includes things each of us thinks we will need. So far we have major components such as MCUs, IO peripherals, etc.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">03/02/2023, Thursday</td>
+                <td style="text-align:center">Finalizing Project Proposal and Formulating any New Project Ideas</td>
+                <td>
+                    <ul>
+                        <li>We finalized our project proposal to include everything we had presented in class. This includes the smart light switch, stove control, and weather system.</li>
+                        <li>We also included some hints about our WiFi based app in the proposal, e.g. what kind of connection would it use, how would it send the data (TCP/UDP).</li>
+                        <li>We also finalized external considerations and adding any additional stretch goals which are priority based: safety for stove controller, etc.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">02/28/2023, Tuesday</td>
+                <td style="text-align:center">Finalizing Project Idea and Making Abstract Slides</td>
+                <td>
+                    <ul>
+                        <li>We finalized our project idea to include all that we had talked about. Our final idea is creating retrofitting devices to turn a home into a smart home.</li>
+                        <li>We are including a smart weather system, smart light switches, stovetop knob controls and connecting all these to an WiFi based app that controls each.</li>
+                        <li>We made finalized and practiced our talks for our proposal abstract on Thursday.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">02/24/2023, Friday</td>
+                <td style="text-align:center">Narrowing down ideas</td>
+                <td>
+                    <ul>
+                        <li>We finalized our website, and primarily worked on narrowing down ideas.</li>
+                        <li>We have narrowed down our ideas to 4 different projects which are automatic valve closer (for kitchen stoves etc.), gesture based wheelchair,<br> automatic traffic management system, mini-weather station for extremely accurate data.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">02/23/2023, Thursday</td>
+                <td style="text-align:center">Creating public website</td>
+                <td>
+                    <ul>
+                        <li>Created public website using github pages using basic HTML/CSS. Any group member is able to manipulate the text</li>
+                        <li>We're not completely sure what we're going to be doing for our senior project, but we were throwing around a couple of ideas</li>
+                        <li>We're thinking of an automatic valve closer, smart electric jacket</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+            <tr>
+                <td style="text-align:center">02/17/2023, Friday</td>
+                <td style="text-align:center">Creating mission statement</td>
+                <td>
+                    <ul>
+                        <li>Created our mission statement for our group, thinking of it as a company</li>
+                        <li>We were brainstorming potential ideas and we narrowed them down to smart electric jacket, or an automated ice cream machine</li>
+                    </ul>
+                </td>
+                <td style="text-align:center"><a href="#">Images</a></td>
+            </tr>
+        </table>
+    </div>
+    <!-- End of Project Details Div-->
+
+    <!-- Start of Our Team Div-->
+    <div id="team" class="content">
+        <h3>Team</h3>
+        <ul>
+            <li>Ojas Kulkarni: Ojas is very much interested in electrical and electronics system design and he specializes in hardware. He can be reached at ojas.ajay.kulkarni@gmail.com</li>
+            <li>Isaac Stagg: Isaac is very much interested in software systems so his expertise can be leveraged when creating applications. He can be reached at isaac.stagg@utah.edu</li>
+            <li>Garrett Slack: Garrett is a junior at the University of Utah who enjoys VLSI, Circuits, and Robotics. He can be reached at garrettlslack@gmail.com</li>
+          </ul>
+    </div>
+    <!-- End of Our Team Div-->
+    
+    <script>
+    function open_tab() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+    
+    
+    function open_tab_content(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("links");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+        }
+    </script>
+  
+</body>
+</html>
