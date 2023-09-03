@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body onload="open_tab_content(event, 'final_design')">
+<body onload="set_default_tab()">
         
     <div class="topnav" id="myTopnav">
         <button class="links" onclick="open_tab_content(event, 'final_design')">Final Design Proposal</button>
@@ -251,6 +251,10 @@
     <!-- End of Our Team Div-->
     
     <script>
+    function set_default_tab() {
+        document.querySelector(".links:first-child").click();
+    }
+        
     function open_tab() {
         var x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
