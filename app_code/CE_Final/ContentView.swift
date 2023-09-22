@@ -11,27 +11,49 @@ import Network
 struct ContentView: View {
     
     @State var connection: NWConnection?
-    @State private var isEnabled = false
+    @State private var featherIsEnabled = false
+    @State private var featherLoading = false
     
-    var host: NWEndpoint.Host = "10.120.36.101"
-    var port: NWEndpoint.Port = 1234
+    @State private var tinyIsEnabled = false
+    @State private var tinyLoading = false
+    
+    @State private var noResponse = false
+    
+    // 0 is 8266
+    // 1 is 32
     
     var body: some View {
-        //Button("button", action: initConnect).buttonStyle(.borderedProminent)
-        Toggle(isOn: $isEnabled) {
-            Label("Kitchen Light", systemImage: "lightbulb.circle")
-        }
-        .padding()
-        .font(.system(size: 30))
-        .frame(width: 350, height: 100)
-        .onChange(of: isEnabled) { newValue in
-            initConnect()
+        VStack {
+            HStack {
+                Label("Kitchen Light", systemImage: "lightbulb.circle")
+                    .font(.system(size: 23))
+                if featherLoading {
+                    Spacer()
+                    ProgressView()
+                        .controlSize(.large)
+                } else {
+                    Toggle(isOn: $featherIsEnabled) {}
+                        .alert("Device Unresponsive", isPresented: $noResponse) {
+                            Button("Dismiss", role: .cancel) {}
+                        }
+                        .onChange(of: featherIsEnabled) { newValue in
+                            sendMessage(msg: featherIsEnabled ? "tinys2 on" : "tinys2 off", device: 0)
+                        }
+                }
+            }
+            .padding(25)
         }
     }
     
-    func initConnect() {
-        print("pressed")
+    func createUDPConnection() {
+        let hostStr = "10.120.41.70"
+        let portInt = 1234
+
+        let host: NWEndpoint.Host = .init(hostStr)
+        let port: NWEndpoint.Port = .init(integerLiteral: UInt16(portInt))
+
         connection = NWConnection(host: host, port: port, using: .udp)
+        
         connection!.stateUpdateHandler = { (newState) in
             switch (newState) {
                 case .preparing:
@@ -50,7 +72,7 @@ struct ContentView: View {
                     print("Entered an unknown state")
             }
         }
-        
+
         connection!.viabilityUpdateHandler = { (isViable) in
             if (isViable) {
                 print("Connection is viable")
@@ -58,7 +80,7 @@ struct ContentView: View {
                 print("Connection is not viable")
             }
         }
-        
+
         connection!.betterPathUpdateHandler = { (betterPathAvailable) in
             if (betterPathAvailable) {
                 print("A better path is available")
@@ -66,20 +88,69 @@ struct ContentView: View {
                 print("No better path is available")
             }
         }
-        
+
         connection!.start(queue: .global())
+    }
+    
+    func sendMessage(msg: String, device: Int) {
+        if device == 0 {
+            featherLoading = true
+        } else if device == 1 {
+            tinyLoading = true
+        }
         
-        connection!.send(content:"hello".data(using: .utf8)!, completion: .contentProcessed({sendError in
+        // Check if the UDP connection is already created
+        if connection == nil {
+            createUDPConnection()
+        }
+        
+        var timeoutTimer: DispatchSourceTimer? = nil
+        timeoutTimer = DispatchSource.makeTimerSource(queue: .global())
+        timeoutTimer!.schedule(deadline: .now() + 4)
+        timeoutTimer?.setEventHandler {
+            DispatchQueue.main.async {
+                print("Timeout: No acknowledgment received")
+                noResponse = true
+                if device == 0 {
+                    featherLoading = false
+                    featherIsEnabled = !featherIsEnabled
+                } else if device == 1 {
+                    tinyLoading = false
+                }
+            }
+            connection?.cancel()
+            connection = nil
+            timeoutTimer = nil
+        }
+        timeoutTimer!.resume()
+
+        // Send the message
+        connection!.send(content: msg.data(using: .utf8)!, completion: .contentProcessed { sendError in
             if let error = sendError {
                 print("Unable to process and send the data: \(error)")
             } else {
                 print("Data has been sent")
-//                connection!.receiveMessage { (data, context, isComplete, error) in
-//                    guard let myData = data else { return }
-//                    print("Received message: " + String(decoding: myData, as: UTF8.self))
-//                }
+                connection!.receiveMessage { (data, context, isComplete, error) in
+                    timeoutTimer?.cancel()
+                    timeoutTimer = nil
+                    if let receiveError = error {
+                        print("Error while receiving data: \(receiveError)")
+                    } else if let receivedData = data {
+                        let receivedString = String(decoding: receivedData, as: UTF8.self)
+                        print("Received message: \(receivedString)")
+                        DispatchQueue.main.async { // need a timeout
+                            if device == 0 {
+                                featherLoading = false
+                            } else if device == 1 {
+                                tinyLoading = false
+                            }
+                        }
+                        connection?.cancel()
+                        connection = nil
+                    }
+                }
             }
-        }))
+        })
     }
 }
 
