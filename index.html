@@ -36,30 +36,29 @@
         <img src="schematics/weatherboxmockup.png" alt="Weather Box Mockup">
         <img src="schematics/stovemockup.png" alt="Stove Mockup">
         <img src="schematics/switchmockup.png" alt="Switch Mockup">
-        <h3>Progress Pictures</h3>
     </div>
     <!-- End of Final Design Details Div-->
 
     <!-- Start of Project Details Div-->
     <div id="details" class="content">
         <h3>Project Timelines</h3>
-        <table>
-            <tr style="width:100%">
-                <th style="width:8%">Dates/Times</th>
-                <th style="width:8%">Milestone</th>
-                <th style="width:8%">Members Involved</th>
-            </tr>
-            <tr>
-                <td style="text-align:center">09/05/2023, Tuesday</td>
-                <td style="text-align:center">Complete the schematic of the light switch PCB. Feature the PCB with motor driver, battery management system, module, and peripherals</td>
-                <td style="text-align:center">Ojas Kulkarni</td>
-            </tr>
-            <tr>
-                <td style="text-align:center">09/10/2023, Sunday</td>
-                <td style="text-align:center">Complete the 3D model of overview structure and start modeling each of the 3D printable sturctures.</td>
-                <td style="text-align:center">Garrett Slack</td>
-            </tr>
-        </table>
+        <div class="flex-container">
+            <div class="flex-item">09/08/2023: Finish light switch schematic and begin layout</div>
+            <div class="flex-item">09/15/2023: Finish 3D modeling and printing of prototype components</div>
+            <div class="flex-item">09/22/2023: Order parts and put together prototype devices using prebuilt parts</div>
+            <div class="flex-item">09/29/2023: Finish light switch, stove knob PCB layout and send for fabrication</div>
+            <div class="flex-item">10/06/2023: Start weather box schematic and test out physical PCBs</div>
+            <div class="flex-item">10/13/2023: Refine 3D models with changes from prototypes and begin resin printing</div>
+            <div class="flex-item">10/20/2023: Complete and implement resin prints with prototype</div>
+            <div class="flex-item">10/27/2023: Finish weather box layout and send for fabrication</div>
+            <div class="flex-item">11/03/2023: Receive PCB from fabrication and implement appropriate peripherals</div>
+            <div class="flex-item">11/10/2023: Testing/Debugging and Development Buffer Time</div>
+            <div class="flex-item">11/17/2023: Testing/Debugging and Development Buffer Time</div>
+            <div class="flex-item">11/24/2023: Testing/Debugging</div>
+            <div class="flex-item">12/01/2023: Testing/Debugging</div>
+            <div class="flex-item">12/08/2023: Testing/Debugging</div>
+        </div>  
+
         <h3>Project Details</h3>
         <table>
             <tr style="width:100%">
@@ -67,6 +66,28 @@
                 <th style="width:20%">Agenda</th>
                 <th style="width:64%">Details and what we did</th>
                 <th style="width:8%">Images</th>
+            </tr>
+            <tr>
+                <td style="text-align:center">09/04/2023, Monday</td>
+                <td style="text-align:center">Finalizing the reminder/project plan presentation</td>
+                <td>
+                    <ul>
+                        <li>Ordered parts for R&D of prebuilt ESP32 boards and battery/motor driver boards.</li>
+                        <li>Discussed mechanical assembly, sketched out preliminary 3D models to be traditionally modeled using Fusion 360</li>
+                        <li>Created, and finalized the reminder/project plan presentation and started on the reminder report.</li>
+                        <li>Split up more tasks into smaller pieces and create timeline for checking in with the group.</li>
+                    </ul>
+                </td>
+                <td style="text-align:center">
+                    <label for="2" class="open">Images</label>
+                    <input type="checkbox" id="2" />
+                    <div class="modal">
+                    <div class="modal__inner">
+                        <img src="schematics/switchmockup.png" width="100%" alt="Switch Mockup">
+                        <label for="2"></label>
+                    </div>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td style="text-align:center">08/30/2023, Wednesday</td>
@@ -77,7 +98,15 @@
                         <li>Discussed the schematic layout to keep everyone up to date</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center">
+                    <label for="1" class="open">Images</label>
+                    <input type="checkbox" id="1" />
+                    <div class="modal">
+                    <div class="modal__inner">
+                        <img src="schematics/stovemockup.png" width="100%" alt="Stove Mockup">
+                        <label for="1"></label>
+                    </div>
+                    </div></td>
             </tr>
             <tr>
                 <td style="text-align:center">05/04/2023, Friday</td>
@@ -89,7 +118,7 @@
                         <li>Finally, we discussed and finalized our milestones and what work each of us will be doing over the summer and turned in our final proposal.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">05/04/2023, Thursday</td>
@@ -100,7 +129,7 @@
                         <li>We also added more information about each of our devices and how they will be controlled.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">05/01/2023, Monday</td>
@@ -112,7 +141,7 @@
                         <li>We discussed any images that need to be created, imported, and how they can be implemented in our final proposal.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <!-- New Things -->
             <tr>
@@ -125,7 +154,7 @@
                         <li>We discussed, and noted several components which would be of better fit and finalized the prototype demonstration document.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">04/18/2023, Tuesday</td>
@@ -140,7 +169,7 @@
                         <li>We added more controls on the landing page to control the DC motor, and throughly tested its functionality.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">04/13/2023, Thursday</td>
@@ -154,7 +183,7 @@
                         <li>We completed our primary prototype goal earlier than expected, and the next step was to control a motor. We ordered a 6V brushless DC motor that could be programmed similarly.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">04/11/2023, Tuesday</td>
@@ -167,7 +196,7 @@
                         <li>Finally, we made tentative designs for the GUI and roughly assessed the complexity of the prototype and final project.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>            
             <tr>
                 <td style="text-align:center">04/05/2023, Wednesday</td>
@@ -181,7 +210,7 @@
                         <li>We finalized what was going to be implemented in our prototype (a terminal/simple UI to control, WiFi to send data, LED/motor as an end effector.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">03/23/2023, Thursday</td>
@@ -193,7 +222,7 @@
                         <li>A final proofread was also done by each team member independent of the others. Mistakes/improvements/clarifications were noted implemented accordingly.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">03/16/2023, Thursday</td>
@@ -206,7 +235,7 @@
                         <li>We have also started to keep a very initial bill of materials that includes things each of us thinks we will need. So far we have major components such as MCUs, IO peripherals, etc.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">03/02/2023, Thursday</td>
@@ -218,7 +247,7 @@
                         <li>We also finalized external considerations and adding any additional stretch goals which are priority based: safety for stove controller, etc.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">02/28/2023, Tuesday</td>
@@ -230,7 +259,7 @@
                         <li>We made finalized and practiced our talks for our proposal abstract on Thursday.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">02/24/2023, Friday</td>
@@ -241,7 +270,7 @@
                         <li>We have narrowed down our ideas to 4 different projects which are automatic valve closer (for kitchen stoves etc.), gesture based wheelchair,<br> automatic traffic management system, mini-weather station for extremely accurate data.</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">02/23/2023, Thursday</td>
@@ -253,7 +282,7 @@
                         <li>We're thinking of an automatic valve closer, smart electric jacket</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
             <tr>
                 <td style="text-align:center">02/17/2023, Friday</td>
@@ -264,7 +293,7 @@
                         <li>We were brainstorming potential ideas and we narrowed them down to smart electric jacket, or an automated ice cream machine</li>
                     </ul>
                 </td>
-                <td style="text-align:center"><a href="https://drive.google.com/drive/folders/1QUrS4R0nl8GlpnqXmXu76cqCFPF3VSTP?usp=sharing">Images</a></td>
+                <td style="text-align:center"></td>
             </tr>
         </table>
     </div>
@@ -291,21 +320,43 @@
             <li>Build app framework</li>
         </ul>
         <h4>Progress images</h4>
-        <p>show PCB design, app and ESP wiring</p>
+        <table>
+            <tr style="width:100%">
+                <th style="width:8%"><img src="schematics/current_app.png" alt="Screenshot of app progress"></th>
+                <th style="width:8%"><img src="schematics/lspcb.png" width="225" height="300" alt="Screenshot of light switch PCB progress"></th>
+                <th style="width:8%"><img src="schematics/lsbox.png" alt="Screenshot of light switch 3D model"></th>
+            </tr>
+        </table>
     </div>
     <!-- End of Project Goals/Steps Div-->
 
     <!-- Start of Our Team Div-->
     <div id="team" class="content">
         <h3>Team</h3>
-        <ul>
-            <li>Ojas Kulkarni: Ojas is very much interested in electrical and electronics system design and he specializes in hardware. He can be reached at ojas.ajay.kulkarni@gmail.com</li>
-            <img src="schematics/ojas.png" width="200" height="200" alt="Ojas Kulkarni">
-            <li>Isaac Stagg: Isaac is very much interested in software systems so his expertise can be leveraged when creating applications. He can be reached at isaac.stagg@utah.edu</li>
-            <img src="schematics/isaac.jpeg" width="225" height="300" alt="Isaac Stagg">
-            <li>Garrett Slack: Garrett is a junior at the University of Utah who enjoys VLSI, Circuits, and Robotics. He can be reached at garrettlslack@gmail.com</li>
-            <img src="schematics/garrett.jpg" width="225" height="300" alt="Garrett Slack">
-        </ul>
+        <div class="team-member">
+            <div class="team-member-desc">
+                <img src="schematics/ojas.png" width="200" height="200" alt="Ojas Kulkarni">
+            </div>
+            <div class="team-member-desc">
+                Ojas Kulkarni: Ojas is very much interested in electrical and electronics system design and he specializes in hardware. He can be reached at ojas.ajay.kulkarni@gmail.com
+            </div>
+        </div>
+        <div class="team-member">
+            <div class="team-member-desc">
+                <img src="schematics/isaac.jpeg" width="225" height="300" alt="Isaac Stagg">
+            </div>
+            <div class="team-member-desc">
+                Isaac Stagg: Isaac is very much interested in software systems so his expertise can be leveraged when creating applications. He can be reached at isaac.stagg@utah.edu
+            </div>
+        </div>
+        <div class="team-member">
+            <div class="team-member-desc">
+                <img src="schematics/garrett.jpg" width="225" height="300" alt="Garrett Slack">
+            </div>
+            <div class="team-member-desc">
+                Garrett Slack: Garrett is a junior at the University of Utah who enjoys VLSI, Circuits, and Robotics. He can be reached at garrettlslack@gmail.com
+            </div>
+        </div>
     </div>
     <!-- End of Our Team Div-->
     

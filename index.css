@@ -57,7 +57,128 @@ body {
 }
 .content {
     display: none;
+    margin: 5%;
 }
 table, th, td {
   border:1px solid black;
+  border-collapse: collapse;
+}
+
+#details th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: #fbba49;
+}
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    font-size: 10px;
+    font-weight: bold;
+    gap: 1%;
+  }
+.team-member {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    font-size: 10px;
+    font-weight: bold;
+    gap: 2%;
+}
+.team-member-desc {
+    padding: 7px;
+    /* width: 100%; */
+    height: 100%;
+    margin-bottom: 1%;
+    /* flex: 50%; */
+}
+.flex-container div:nth-child(even){
+    background-color: #fbba49;
+}
+  .flex-item {
+    background-color: #f1f1f1;
+    padding: 7px;
+    width: 100%;
+    height: 125px;
+    margin-bottom: 1%;
+    flex: 50%;
+  }
+  
+  /* Responsive layout - makes a one column-layout instead of two-column layout */
+  @media (max-width: 1500px) {
+    .flex-container {
+      flex-direction: column;
+    }
+  }
+  
+.modal {
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity 500ms ease-in-out;
+  }
+.modal__inner {
+    transform: translate(-50%, -50%) scale(0.75);
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    background: white;
+    padding: 30px;
+    position: absolute;
+    color: black;
+    overflow-y: scroll;
+}
+@media screen and (max-width: 600px) {
+    .modal__inner {
+      width: 300px;
+      height: 300px;
+      overflow-y: scroll;
+    }
+}
+label {
+    display: inline-block;
+    cursor: pointer;
+}
+label.open {
+    color: turquoise;
+    transition: color 200ms ease-in-out;
+    text-decoration: underline;
+}
+label.open:hover {
+    color: paleturquoise;
+}
+input {
+    display: none;
+}
+input:checked + .modal {
+    opacity: 1;
+    visibility: visible;
+}
+input:checked + .modal .modal__inner {
+    transform: translate(-50%, -50%) scale(1);
+    transition: all 200ms ease-in-out;
+}
+input:checked + .modal .modal__inner p {
+    font-size: 1.25rem;
+    line-height: 125%;
+} 
+input:checked + .modal label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    background: #666666;
+    transition: all 200ms ease-in-out;
+}
+input:checked + .modal label:hover {
+    background: #333333;
 }
