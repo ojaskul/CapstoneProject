@@ -1,13 +1,13 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
-
+/*
 const char* ssid = "ULink";        // Replace with your WiFi network SSID
 const char* password = "xwswxxcvnbzr";  // Replace with your WiFi network password
-/*
-const char* ssid = "Hessian";
-const char* password = "zHessian01";
 */
+const char* ssid = "Googleballz";
+const char* password = "8015450181";
+
 unsigned int localPort = 1234;         // Change this to the desired port number
 const int pinNum = 0;
 
@@ -51,7 +51,7 @@ void loop() {
       int spaceIndex = packet.indexOf(' ');
       String device = packet.substring(0, spaceIndex);
       if (device == "tinys2") {
-        Udp.beginPacket("10.120.40.231", 1234);
+        Udp.beginPacket("192.168.1.109", 1235);
         Udp.write(packet.substring(spaceIndex + 1).c_str());
         Udp.endPacket();
         Serial.println("Sent request to tinys2");

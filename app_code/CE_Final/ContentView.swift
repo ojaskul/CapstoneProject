@@ -46,7 +46,7 @@ struct ContentView: View {
     }
     
     func createUDPConnection() {
-        let hostStr = "10.120.41.70"
+        let hostStr = "192.168.1.237"
         let portInt = 1234
 
         let host: NWEndpoint.Host = .init(hostStr)

@@ -1,15 +1,26 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
+/*
 const char* ssid = "ULink";
 const char* pass = "zvvqkchxrblt";
-unsigned int localPort = 1234;
+*/
+const char* ssid = "Googleballz";
+const char* pass = "8015450181";
+
+unsigned int localPort = 1235;
+
+const int ON_PIN = 8;
+const int OFF_PIN = 9;
 
 char packetBuffer[6];
 
 WiFiUDP Udp;
 
 void setup() {
+  pinMode(ON_PIN, OUTPUT);
+  pinMode(OFF_PIN, OUTPUT);
+
   Serial.begin(115200);
   delay(500);
 
@@ -35,9 +46,13 @@ void loop() {
       Serial.printf("[%lu] Received from %s:%d - %s\n", millis(), Udp.remoteIP().toString().c_str(), Udp.remotePort(), packetBuffer);
       String packet(packetBuffer);
       if (packet == "on") {
-
+        digitalWrite(ON_PIN, HIGH);
+        delay(1000); // ms
+        digitalWrite(ON_PIN, LOW);
       } else if (packet == "off") {
-
+        digitalWrite(OFF_PIN, HIGH);
+        delay(1000);
+        digitalWrite(OFF_PIN, LOW);
       }
 
       Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
