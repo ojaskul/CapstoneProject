@@ -16,8 +16,10 @@ struct AccessoryButton: View {
     
     var body: some View {
         Button(action: {
-            onTapAction()
-            print("Tapped \(accessory)")
+            withAnimation {
+                onTapAction()
+                print("Tapped \(accessory)")
+            }
         }) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
@@ -54,6 +56,8 @@ struct AccessoryButton: View {
             )
         }
         .buttonStyle(PlainButtonStyle())
+        .scaleEffect(loading ? 0.95 : 1.0)
+        .animation(.easeInOut(duration: 0.1))
         .padding(0)
     }
 }

@@ -16,6 +16,8 @@ struct Config {
 }
 
 struct StoveView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State var stoveValue: CGFloat = 0.0
     @State var angleValue: CGFloat = 0.0
     let config = Config(minimumValue: 0.0, maximumValue: 40.0, totalValue: 40.0, knobRadius: 15.0, radius: 125.0)
@@ -40,36 +42,79 @@ struct StoveView: View {
                 .fill(Color.init(red: 34/255, green: 30/255, blue: 47/255))
                 .edgesIgnoringSafeArea(.all)
             
-            Circle()
-                .frame(width: config.radius * 2, height: config.radius * 2)
-                .scaleEffect(1.2)
-                .foregroundColor(.primary)
-                .colorInvert()
-            
-            Circle()
-                .stroke(Color.primary, style: StrokeStyle(lineWidth: 3, lineCap: .butt, dash: [3, 23.18]))
-                .frame(width: config.radius * 2, height: config.radius * 2)
-            
-            Circle()
-                .trim(from: 0.0, to: stoveValue / config.totalValue)
-                .stroke(stoveValue < config.maximumValue / 2 ? Color.blue : Color.red, lineWidth: 4)
-                .frame(width: config.radius * 2, height: config.radius * 2)
-                .rotationEffect(.degrees(-90))
-            
-            Circle()
-                .fill(stoveValue < config.maximumValue / 2 ? Color.blue : Color.red)
-                .frame(width: config.knobRadius * 2, height: config.knobRadius * 2)
-                .padding(10)
-                .offset(y: -config.radius)
-                .rotationEffect(Angle.degrees(Double(angleValue)))
-                .gesture(DragGesture(minimumDistance: 0.0)
-                    .onChanged({ value in
-                        change(location: value.location)
-                    }))
-            
-            Text("\(String.init(format: "%.0f", stoveValue)) º")
-                .font(.system(size: 60))
-                .foregroundColor(.primary)
+            VStack {
+                Spacer()
+                Spacer()
+                
+                ZStack {
+                    Circle()
+                        .frame(width: config.radius * 2, height: config.radius * 2)
+                        .scaleEffect(1.2)
+                        .foregroundColor(.primary)
+                        .colorInvert()
+                    
+                    Circle()
+                        .stroke(Color.primary, style: StrokeStyle(lineWidth: 3, lineCap: .butt, dash: [3, 23.18]))
+                        .frame(width: config.radius * 2, height: config.radius * 2)
+                    
+                    Circle()
+                        .trim(from: 0.0, to: stoveValue / config.totalValue)
+                        .stroke(Color.blue, lineWidth: 4)
+                        .frame(width: config.radius * 2, height: config.radius * 2)
+                        .rotationEffect(.degrees(-90))
+                    
+                    Circle()
+                        .fill(Color.blue)
+                        .frame(width: config.knobRadius * 2, height: config.knobRadius * 2)
+                        .padding(10)
+                        .offset(y: -config.radius)
+                        .rotationEffect(Angle.degrees(Double(angleValue)))
+                        .gesture(DragGesture(minimumDistance: 0.0)
+                            .onChanged({ value in
+                                change(location: value.location)
+                            }))
+                    
+                    Text("\(String.init(format: "%.0f", stoveValue)) º")
+                        .font(.system(size: 60))
+                        .foregroundColor(.primary)
+                }
+                
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        stoveValue = 0.0
+                        g_stoveVal = 0.0
+                        dismiss()
+                    }) {
+                        Text("Off")
+                            .padding()
+                            .padding(.horizontal)
+                            .foregroundColor(.white)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray.opacity(0.5)))
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        stoveValue = config.maximumValue / 2
+                        g_stoveVal = config.maximumValue / 2
+                        dismiss()
+                    }) {
+                        Text("Half")
+                            .padding()
+                            .padding(.horizontal)
+                            .foregroundColor(.white)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray.opacity(0.5)))
+                    }
+                    
+                    Spacer()
+                }
+                
+                Spacer()
+            }
         }
     }
 }

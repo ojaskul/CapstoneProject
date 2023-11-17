@@ -17,7 +17,6 @@ struct ContentView: View {
     @State private var featherLoading = false
     
     @State private var tinyIsEnabled = false
-    @State private var tinyLoading = false
     
     @State private var noResponse = false
     
@@ -26,8 +25,9 @@ struct ContentView: View {
     @State private var stoveEspLoading = false
     @State private var stoveNoResponse = false
     
-    // 0 is 8266
-    // 1 is 32
+    // 0 is 8266 (brain)
+    // 1 is 32 (light)
+    // 2 is stove
     
     var body: some View {
         TabView {
@@ -50,15 +50,15 @@ struct ContentView: View {
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 3), alignment: .leading, spacing: 16) {
                         AccessoryButton(accessory: "Kitchen", systemImage: "lightbulb", toggleState: featherIsEnabled, loading: featherLoading) {
                             featherIsEnabled.toggle()
-                            sendMessage(msg: featherIsEnabled ? "tinys2 on" : "tinys2 off", device: 0)
+                            sendMessage(msg: featherIsEnabled ? "tinys2 on" : "tinys2 off", targetDevice: 1)
                         }
                         .alert("Device Unresponsive", isPresented: $noResponse) {
                             Button("Dismiss", role: .cancel) {}
                         }
                         
                         AccessoryButton(accessory: "Stove", systemImage: "dial", toggleState: stoveIsEnabled, loading: stoveEspLoading) {
-                            sendMessage(msg: "stove status", device: 0)
-                            showingStoveDetails = true // move into send success
+                            stoveIsEnabled = true
+                            sendMessage(msg: "stove status", targetDevice: 2)
                         }
                         .alert("Device Not Responding", isPresented: $stoveNoResponse) {
                             Button("Dismiss", role: .cancel) {}
@@ -66,7 +66,8 @@ struct ContentView: View {
                         .popover(isPresented: $showingStoveDetails, content: {
                             StoveView(stoveValue: g_stoveVal, angleValue: (g_stoveVal / 40) * 360)
                                 .onDisappear() {
-                                    sendMessage(msg: "stove \(g_stoveVal)", device: 0)
+                                    sendMessage(msg: "stove \(g_stoveVal)")
+                                    stoveIsEnabled = g_stoveVal > 1 ? true : false
                                 }
                         })
                     }
@@ -87,13 +88,19 @@ struct ContentView: View {
                     Text("Weather")
                 }
                 .onAppear(perform: {
-                    sendMessage(msg: "weather fetch", device: 0)
+                    sendMessage(msg: "weather fetch")
                 })
+            
+            AutomationView()
+                .tabItem() {
+                    Image(systemName: "bolt.badge.automatic.fill")
+                    Text("Automations")
+                }
         }
     }
     
     func createUDPConnection() {
-        let hostStr = "10.120.37.199"
+        let hostStr = "192.168.1.237"
         let portInt = 1234
 
         let host: NWEndpoint.Host = .init(hostStr)
@@ -139,11 +146,11 @@ struct ContentView: View {
         connection!.start(queue: .global())
     }
     
-    func sendMessage(msg: String, device: Int) {
-        if device == 0 {
+    func sendMessage(msg: String, targetDevice: Int = 0) {
+        if (targetDevice == 1) {
             featherLoading = true
-        } else if device == 1 {
-            tinyLoading = true
+        } else if (targetDevice == 2) {
+            stoveEspLoading = true
         }
         
         // Check if the UDP connection is already created
@@ -158,11 +165,12 @@ struct ContentView: View {
             DispatchQueue.main.async {
                 print("Timeout: No acknowledgment received")
                 noResponse = true
-                if device == 0 {
+                if (targetDevice == 1) {
                     featherLoading = false
                     featherIsEnabled = !featherIsEnabled
-                } else if device == 1 {
-                    tinyLoading = false
+                } else if (targetDevice == 2) {
+                    stoveEspLoading = false
+                    stoveIsEnabled = !stoveIsEnabled
                 }
             }
             connection?.cancel()
@@ -186,14 +194,18 @@ struct ContentView: View {
                         let receivedString = String(decoding: receivedData, as: UTF8.self)
                         print("Received message: \(receivedString)")
                         DispatchQueue.main.async { // need a timeout
-                            if device == 0 {
+                            if (targetDevice == 1) {
                                 featherLoading = false
-                            } else if device == 1 {
-                                tinyLoading = false
+                            } else if (targetDevice == 2) {
+                                stoveEspLoading = false
                             }
                         }
                         connection?.cancel()
                         connection = nil
+                        
+                        if (targetDevice == 2) {
+                            showingStoveDetails = true
+                        }
                     }
                 }
             }

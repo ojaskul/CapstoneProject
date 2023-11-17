@@ -62,6 +62,24 @@ void loop() {
         Udp.write("received");
         Udp.endPacket();
         Serial.printf("Ack sent to %s : %d\n", phoneIP.toString().c_str(), phonePort);
+      } else if (packet.startsWith("stove")) { // reconfigure all of this if / else if / else if to be light / stove / weather and then inside that do other logic for sending to esp and waiting etc
+        phoneIP = Udp.remoteIP();
+        phonePort = Udp.remotePort();
+        delay(500);
+        Udp.beginPacket(phoneIP, phonePort);
+        Udp.write("received");
+        Udp.endPacket();
+        Serial.printf("Ack sent to %s : %d\n", phoneIP.toString().c_str(), phonePort);
+      } else if (packet.startsWith("weather")) {
+        phoneIP = Udp.remoteIP();
+        phonePort = Udp.remotePort();
+        delay(500);
+        Udp.beginPacket(phoneIP, phonePort);
+        Udp.write("weather");
+        Udp.endPacket();
+        Serial.printf("Ack sent to %s : %d\n", phoneIP.toString().c_str(), phonePort);
+      } else {
+        Serial.println("passing");
       }
     }
     for (int i = 0; i < 6; i++) {

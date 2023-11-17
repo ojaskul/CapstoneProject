@@ -47,11 +47,11 @@ void loop() {
       String packet(packetBuffer);
       if (packet == "on") {
         digitalWrite(ON_PIN, HIGH);
-        delay(1000); // ms
+        delay(2000); // ms
         digitalWrite(ON_PIN, LOW);
       } else if (packet == "off") {
         digitalWrite(OFF_PIN, HIGH);
-        delay(1000);
+        delay(2000);
         digitalWrite(OFF_PIN, LOW);
       }
 
