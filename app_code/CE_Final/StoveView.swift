@@ -20,7 +20,7 @@ struct StoveView: View {
     
     @State var stoveValue: CGFloat = 0.0
     @State var angleValue: CGFloat = 0.0
-    let config = Config(minimumValue: 0.0, maximumValue: 40.0, totalValue: 40.0, knobRadius: 15.0, radius: 125.0)
+    let config = Config(minimumValue: 0.0, maximumValue: 100.0, totalValue: 100.0, knobRadius: 15.0, radius: 125.0)
     
     private func change(location: CGPoint) {
         let vector = CGVector(dx: location.x, dy: location.y)
@@ -74,7 +74,7 @@ struct StoveView: View {
                                 change(location: value.location)
                             }))
                     
-                    Text("\(String.init(format: "%.0f", stoveValue)) º")
+                    Text("\(String.init(format: "%.0f", stoveValue)) %")
                         .font(.system(size: 60))
                         .foregroundColor(.primary)
                 }

@@ -64,9 +64,9 @@ struct ContentView: View {
                             Button("Dismiss", role: .cancel) {}
                         }
                         .popover(isPresented: $showingStoveDetails, content: {
-                            StoveView(stoveValue: g_stoveVal, angleValue: (g_stoveVal / 40) * 360)
+                            StoveView(stoveValue: g_stoveVal, angleValue: (g_stoveVal / 100) * 360)
                                 .onDisappear() {
-                                    sendMessage(msg: "stove \(g_stoveVal)")
+                                    sendMessage(msg: "stove rotate \(g_stoveVal)")
                                     stoveIsEnabled = g_stoveVal > 1 ? true : false
                                 }
                         })
@@ -100,7 +100,7 @@ struct ContentView: View {
     }
     
     func createUDPConnection() {
-        let hostStr = "192.168.1.237"
+        let hostStr = "172.20.10.5"
         let portInt = 1234
 
         let host: NWEndpoint.Host = .init(hostStr)
@@ -205,6 +205,11 @@ struct ContentView: View {
                         
                         if (targetDevice == 2) {
                             showingStoveDetails = true
+                            if (receivedString.starts(with: "status")) {
+                                var amt = Double(receivedString[receivedString.firstIndex(of: " ")!...].trimmingCharacters(in: .whitespacesAndNewlines))
+                                g_stoveVal = (amt ?? 0) * 100 / 4076
+                                print(g_stoveVal)
+                            }
                         }
                     }
                 }

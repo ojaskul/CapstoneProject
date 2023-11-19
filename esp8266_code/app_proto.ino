@@ -1,12 +1,15 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
-/*
-const char* ssid = "ULink";        // Replace with your WiFi network SSID
-const char* password = "xwswxxcvnbzr";  // Replace with your WiFi network password
-*/
-const char* ssid = "Googleballz";
-const char* password = "8015450181";
+
+// const char* ssid = "ULink";
+// const char* password = "xwswxxcvnbzr";
+
+// const char* ssid = "Googleballz";
+// const char* password = "8015450181";
+
+const char* ssid = "IsaaciPhone";
+const char* password = "igs2002!";
 
 unsigned int localPort = 1234;         // Change this to the desired port number
 const int pinNum = 0;
@@ -51,10 +54,19 @@ void loop() {
       int spaceIndex = packet.indexOf(' ');
       String device = packet.substring(0, spaceIndex);
       if (device == "tinys2") {
-        Udp.beginPacket("192.168.1.109", 1235);
+        Udp.beginPacket("10.0.0.114", 1235);
         Udp.write(packet.substring(spaceIndex + 1).c_str());
         Udp.endPacket();
         Serial.println("Sent request to tinys2");
+
+        phoneIP = Udp.remoteIP();
+        phonePort = Udp.remotePort();
+      } else if (device == "stove") {
+        Udp.beginPacket("172.20.10.4", 1235);
+        Udp.write(packet.substring(spaceIndex + 1).c_str());
+        Udp.endPacket();
+        Serial.println("Sent request to stove");
+
         phoneIP = Udp.remoteIP();
         phonePort = Udp.remotePort();
       } else if (packet.substring(spaceIndex + 1) == "received") {
@@ -76,6 +88,11 @@ void loop() {
         delay(500);
         Udp.beginPacket(phoneIP, phonePort);
         Udp.write("weather");
+        Udp.endPacket();
+        Serial.printf("Ack sent to %s : %d\n", phoneIP.toString().c_str(), phonePort);
+      } else if (packet.startsWith("status")) {
+        Udp.beginPacket(phoneIP, phonePort);
+        Udp.write(packet.c_str());
         Udp.endPacket();
         Serial.printf("Ack sent to %s : %d\n", phoneIP.toString().c_str(), phonePort);
       } else {
