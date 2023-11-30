@@ -5,14 +5,14 @@
 #include <WiFiUdp.h>
 
 
-// const char* ssid = "ULink";
-// const char* pass = "zvvqkchxrblt";
+const char* ssid = "ULink";
+const char* pass = "jtpdlgkvxkgs";
 
 // const char* ssid = "Googleballz";
 // const char* pass = "8015450181";
 
-const char* ssid = "IsaaciPhone";
-const char* pass = "igs2002!";
+// const char* ssid = "IsaaciPhone";
+// const char* pass = "igs2002!";
 
 unsigned int localPort = 1235;
 

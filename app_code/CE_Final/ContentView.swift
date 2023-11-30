@@ -12,6 +12,10 @@ var g_stoveVal = 0.0
 
 struct ContentView: View {
     
+    init() {
+      UITabBar.appearance().unselectedItemTintColor = UIColor.gray
+    }
+    
     @State var connection: NWConnection?
     @State private var featherIsEnabled = false
     @State private var featherLoading = false
@@ -24,6 +28,9 @@ struct ContentView: View {
     @State private var stoveIsEnabled = false
     @State private var stoveEspLoading = false
     @State private var stoveNoResponse = false
+    
+    @State private var refresh: Bool = false
+    @State private var lumens: Decimal = 0
     
     // 0 is 8266 (brain)
     // 1 is 32 (light)
@@ -38,6 +45,7 @@ struct ContentView: View {
                                startPoint: .topLeading,
                                endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.top)
+                .edgesIgnoringSafeArea(.bottom)
                 
                 VStack(alignment: .leading) {
                     Text("Accessories")
@@ -82,7 +90,7 @@ struct ContentView: View {
                 Text("Accessories")
             }
             
-            WeatherView()
+            WeatherView(refreshWeather: $refresh, lum: $lumens)
                 .tabItem() {
                     Image(systemName: "cloud")
                     Text("Weather")
@@ -90,6 +98,10 @@ struct ContentView: View {
                 .onAppear(perform: {
                     sendMessage(msg: "weather fetch")
                 })
+                .onChange(of: refresh) { oldValue, newValue in
+                    print("refreshing...")
+                    sendMessage(msg: "weather fetch")
+                }
             
             AutomationView()
                 .tabItem() {
@@ -100,7 +112,7 @@ struct ContentView: View {
     }
     
     func createUDPConnection() {
-        let hostStr = "172.20.10.5"
+        let hostStr = "10.120.38.225"
         let portInt = 1234
 
         let host: NWEndpoint.Host = .init(hostStr)
@@ -203,10 +215,16 @@ struct ContentView: View {
                         connection?.cancel()
                         connection = nil
                         
+                        if (receivedString.starts(with: "weather: ")) {
+                            print(receivedString)
+                            let temp = receivedString[receivedString.firstIndex(of: " ")!...]
+                            lumens = pow(Decimal(Int(temp.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 225) - 225, 2) * 0.2
+                        }
+                        
                         if (targetDevice == 2) {
                             showingStoveDetails = true
                             if (receivedString.starts(with: "status")) {
-                                var amt = Double(receivedString[receivedString.firstIndex(of: " ")!...].trimmingCharacters(in: .whitespacesAndNewlines))
+                                let amt = Double(receivedString[receivedString.firstIndex(of: " ")!...].trimmingCharacters(in: .whitespacesAndNewlines))
                                 g_stoveVal = (amt ?? 0) * 100 / 4076
                                 print(g_stoveVal)
                             }

@@ -57,7 +57,7 @@ struct AccessoryButton: View {
         }
         .buttonStyle(PlainButtonStyle())
         .scaleEffect(loading ? 0.95 : 1.0)
-        .animation(.easeInOut(duration: 0.1))
+        .animation(.easeInOut(duration: 0.1), value: 0.1)
         .padding(0)
     }
 }
