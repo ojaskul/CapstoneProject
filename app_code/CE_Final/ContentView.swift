@@ -225,7 +225,7 @@ struct ContentView: View {
                             showingStoveDetails = true
                             if (receivedString.starts(with: "status")) {
                                 let amt = Double(receivedString[receivedString.firstIndex(of: " ")!...].trimmingCharacters(in: .whitespacesAndNewlines))
-                                g_stoveVal = (amt ?? 0) * 100 / 4076
+                                g_stoveVal = (amt ?? 0) * 100 / 3057
                                 print(g_stoveVal)
                             }
                         }

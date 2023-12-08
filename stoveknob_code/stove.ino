@@ -24,13 +24,22 @@ unsigned int localPort = 1235;
 
 char packetBuffer[6];
 bool motorTurning = false;
-int fullRev = 4076;
+// int fullRev = 4076;
+int fullRev = 3057;
+
+int potPercent;
+int prevPercent;
+bool shouldPoll = false;
 
 WiFiUDP Udp;
 
 AccelStepper stepper1(HALFSTEP, motorPin1, motorPin3, motorPin2, motorPin4);
 
 void setup() {
+  pinMode(18, INPUT);
+  potPercent = round(analogRead(18) / 81.91);
+  prevPercent = potPercent;
+
   Serial.begin(115200);
   delay(500);
 
@@ -94,5 +103,22 @@ void loop() {
     for (int i = 0; i < 6; i++) {
       packetBuffer[i] = 0;
     }
+  }
+
+  int currentPercent = round(analogRead(18) / 81.91);
+
+  if (!shouldPoll && abs(currentPercent - prevPercent) > 2) {
+    shouldPoll = true;
+  }
+
+  if (shouldPoll) {
+    prevPercent = currentPercent;
+  }
+
+  if (shouldPoll && abs(currentPercent - prevPercent) < 2) {
+    shouldPoll = false;
+    long stepAmt = (currentPercent * fullRev) / 100;
+    stepper1.moveTo(stepAmt);
+    motorTurning = true;
   }
 }

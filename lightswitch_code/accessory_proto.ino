@@ -15,6 +15,7 @@ unsigned int localPort = 1235;
 
 const int ON_PIN = 8;
 const int OFF_PIN = 9;
+const int SPIN_TIME = 575;
 
 const int BTN_PIN = 4;
 bool on = false;
@@ -55,12 +56,12 @@ void loop() {
       if (packet == "on" && !on) {
         on = true;
         digitalWrite(ON_PIN, HIGH);
-        delay(2000); // ms
+        delay(SPIN_TIME); // ms
         digitalWrite(ON_PIN, LOW);
       } else if (packet == "off" && on) {
         on = false;
         digitalWrite(OFF_PIN, HIGH);
-        delay(2000);
+        delay(SPIN_TIME);
         digitalWrite(OFF_PIN, LOW);
       }
 
@@ -79,12 +80,12 @@ void loop() {
     if (on) {
       on = false;
       digitalWrite(OFF_PIN, HIGH);
-      delay(2000);
+      delay(SPIN_TIME);
       digitalWrite(OFF_PIN, LOW);
     } else {
       on = true;
       digitalWrite(ON_PIN, HIGH);
-      delay(2000); // ms
+      delay(SPIN_TIME); // ms
       digitalWrite(ON_PIN, LOW);
     }
   }
