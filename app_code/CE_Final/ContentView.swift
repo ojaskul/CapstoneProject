@@ -102,12 +102,6 @@ struct ContentView: View {
                     print("refreshing...")
                     sendMessage(msg: "weather fetch")
                 }
-            
-            AutomationView()
-                .tabItem() {
-                    Image(systemName: "bolt.badge.automatic.fill")
-                    Text("Automations")
-                }
         }
     }
     
